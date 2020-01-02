@@ -42,6 +42,8 @@ pcre： 重写rewrite
 
 zlib：gzip压缩
 
+stream：用来实现四层协议的转发、代理或者负载均衡，可以代理rocketmq
+
 ```shell
 cd /usr/local/src
 ## pcre
@@ -81,6 +83,7 @@ cd nginx-1.17.0
 --with-pcre=/usr/local/src/pcre-8.39 \
 --with-zlib=/usr/local/src/zlib-1.2.11 \
 --with-openssl=/usr/local/src/openssl-1.0.2s
+
  
 make
 make install
