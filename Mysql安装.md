@@ -46,6 +46,11 @@ chown -R mysql:mysql /usr/local/mysql
 mkdir /usr/local/mysql/data 
 ## 控制台打印密码
 mysqld  --initialize --console 
+## 首次启动
+mysqld --defaults-file=/home/app/soft/my.cnf --initialize --user=app --basedir=/home/app/MySQL - -datadir=/home/wzw/MySQL/data
+
+## 启动MySQL：
+mysqld_safe --defaults-file=/home/hadoop/MySQL/my.cnf --user=hadoop &
 ```
 
 ### Mysql 服务
@@ -100,7 +105,11 @@ create user 'root'@'%' identified by 'password';
 grant all on *.* to 'root'@'%';
 
 # 刷新
-flush privileges; 
+flush privileges;
+
+
+# 数据库权限
+GRANT Alter, Alter Routine, Create, Create Routine, Create Temporary Tables, Create View, Delete, Drop, Event, Execute, Grant Option, Index, Insert, Lock Tables, References, Select, Show View, Trigger, Update ON `dev_db`.* TO `dev`@`%`;
 ```
 
  
