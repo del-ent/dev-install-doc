@@ -76,10 +76,12 @@ cp ~/nginx-1.17.0.tar.gz .
 tar -zxvf nginx-1.17.0.tar.gz
 cd nginx-1.17.0
  
-./configure --sbin-path=/usr/local/nginx/sbin/nginx \
+./configure --prefix=/usr/local/nginx \
+--sbin-path=/usr/local/nginx/sbin/nginx \
 --conf-path=/usr/local/nginx/nginx.conf \
 --pid-path=/usr/local/nginx/nginx.pid \
 --with-http_ssl_module \
+--with-http_realip_module \
 --with-pcre=/usr/local/src/pcre-8.39 \
 --with-zlib=/usr/local/src/zlib-1.2.11 \
 --with-openssl=/usr/local/src/openssl-1.0.2s
