@@ -107,6 +107,7 @@ grant all on *.* to 'root'@'%';
 # 刷新
 flush privileges;
 
+GRANT RELOAD,REPLICATION CLIENT ON *.* TO 'risk'@'%';
 
 # 数据库权限
 GRANT Alter, Alter Routine, Create, Create Routine, Create Temporary Tables, Create View, Delete, Drop, Event, Execute, Grant Option, Index, Insert, Lock Tables, References, Select, Show View, Trigger, Update ON `dev_db`.* TO `dev`@`%`;
