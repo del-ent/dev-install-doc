@@ -21,10 +21,10 @@ mysqldump -h$DBHOST -u$DBUSER -p$DBPASSWORD  --default-character-set=utf8mb4 --s
 #mysqldump  -h$DBHOST -u$DBUSER -p$DBPASSWORD --all-databases  --skip-lock-tables  --single-transaction --master-data=2 --flush-logs  >  all.sql
 
 CUR=`du -k $BACKUPDIR/dbbackup.sql.xz | awk '{print $1}'`
-if [ "$CUR" -lt "500000" ];then
-             echo  "dbbackup is failed" > $log/mysql.$DATE.log
+if [ "$CUR" -lt "300" ];then
+	echo  "dbbackup is failed" > $log/mysql.$DATE.log
 else
-    	     echo  "dbbackup is success" > $log/mysql.$DATE.log
+	echo  "dbbackup is success" > $log/mysql.$DATE.log
 fi 
 
 #删除备份目录下,前7天的备份文件    
