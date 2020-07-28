@@ -11,6 +11,18 @@ cd distribution/target/apache-rocketmq
 
 
 
+### 集群配置
+
+rocketmq提供配置示例，文件位置`conf/`
+
+```
+2m-2s-sync
+2m-2s-async
+2m-noslave
+```
+
+
+
 ### 启动Name Server
 
 ```
@@ -25,6 +37,27 @@ tail -f ~/logs/rocketmqlogs/namesrv.log
 ```
 nohup sh bin/mqbroker -n localhost:9876 &
 tail -f ~/logs/rocketmqlogs/broker.log 
+```
+
+
+
+* 集群启动需要指定配置文件
+
+  ```
+  cd /bin
+  mqbroker -c ../conf/2m-2s-sync/broker-a.properties -n 192.168.0.2:9876,192.168.0.3:9876
+  mqbroker -c ../conf/2m-2s-sync/broker-a-s.properties -n 192.168.0.2:9876,192.168.0.3:9876
+  mqbroker -c ../conf/2m-2s-sync/broker-b.properties -n 192.168.0.2:9876,192.168.0.3:9876
+  mqbroker -c ../conf/2m-2s-sync/broker-b-s.properties -n 192.168.0.2:9876,192.168.0.3:9876
+  ```
+
+
+
+### 验证
+
+```
+cd /bin
+mqadmin clusterlist
 ```
 
 
