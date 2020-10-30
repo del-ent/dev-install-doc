@@ -41,14 +41,16 @@ tail -f ~/logs/rocketmqlogs/broker.log
 
 
 
-* 集群启动需要指定配置文件
+* 集群启动需要指定配置文件(namesrv集群也需要指定)
 
   ```
   cd /bin
-  mqbroker -c ../conf/2m-2s-sync/broker-a.properties -n 192.168.0.2:9876,192.168.0.3:9876
-  mqbroker -c ../conf/2m-2s-sync/broker-a-s.properties -n 192.168.0.2:9876,192.168.0.3:9876
-  mqbroker -c ../conf/2m-2s-sync/broker-b.properties -n 192.168.0.2:9876,192.168.0.3:9876
-  mqbroker -c ../conf/2m-2s-sync/broker-b-s.properties -n 192.168.0.2:9876,192.168.0.3:9876
+  # 在各服务器上启动
+  # 示例为4台服务器以双主双从的方式启动
+  mqbroker -c ../conf/2m-2s-sync/broker-a.properties -n "192.168.0.2:9876;192.168.0.3:9876"
+  mqbroker -c ../conf/2m-2s-sync/broker-a-s.properties -n "192.168.0.2:9876;192.168.0.3:9876"
+  mqbroker -c ../conf/2m-2s-sync/broker-b.properties -n "192.168.0.2:9876;192.168.0.3:9876"
+  mqbroker -c ../conf/2m-2s-sync/broker-b-s.properties -n "192.168.0.2:9876;192.168.0.3:9876"
   ```
 
 
@@ -57,7 +59,7 @@ tail -f ~/logs/rocketmqlogs/broker.log
 
 ```
 cd /bin
-mqadmin clusterlist
+mqadmin clusterlist -n "ip1:port;ip2:port"
 ```
 
 
