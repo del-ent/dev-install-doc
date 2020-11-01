@@ -86,5 +86,31 @@ mqadmin deleteTopic -n localhost:9876 -c DefaultCluster -t TopciName
 mqadmin topicList -n localhost:9876 -c DefaultCluster 
 ```
 
+### 查询cluster信息
+
+```
+mqadmin clusterList -n localhost:9876
+```
+
+### 查询broker状态
+
+````
+mqadmin brokerStatus -n localhost:9876 -c DefaultCluster
+````
+
+### 查询消费组状态
+
+```
+mqadmin brokerConsumeStats -n localhost:9876 -b localhost:10911 
+```
+
+### 重置消费位点
+
+```
+mqadmin resetOffsetByTime  -n localhost:9876 -g consumer_group_name -t TopciName -f true -s now
+```
+
+
+
 
 
