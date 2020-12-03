@@ -2,6 +2,8 @@
 
 ### 下载Mysql 
 
+> 下载最新版本即可
+
 ```
 ## 国内开源镜像站下载mysql包
 wget https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-8.0/mysql-8.0.16-linux-glibc2.12-x86_64.tar.xz 
@@ -18,14 +20,20 @@ cat /etc/my.cnf
 ```
 [client]
 port=3306
-socket=/tmp/mysql.sock
+socket=/data/mysql/mysql.sock
 
 [mysqld]
 port=3306
-user=mysql
-#socket=/tmp/mysql.sock
 basedir=/usr/local/mysql
-datadir=/usr/local/mysql/data
+socket=/data/mysql/mysql.sock
+datadir=/data/mysql/data
+log-error=/data/mysql/logs/error.log
+pid-file=/data/mysql/mysql.pid
+
+character-set-server=utf8mb4
+collation-server = utf8mb4_general_ci
+
+default_authentication_plugin=mysql_native_password
 ```
 
 ### Mysql 用户
@@ -43,14 +51,14 @@ chown -R mysql:mysql /usr/local/mysql
 
 ```
 ## 创建mysql数据存放目录
-mkdir /usr/local/mysql/data 
+mkdir /data/3306
 ## 控制台打印密码
 mysqld  --initialize --console 
 ## 首次启动
-mysqld --defaults-file=/home/app/soft/my.cnf --initialize --user=app --basedir=/home/app/MySQL - -datadir=/home/wzw/MySQL/data
+mysqld --defaults-file=/etc/my.cnf --initialize --user=app --basedir=/home/app/MySQL - -datadir=/data/3306
 
 ## 启动MySQL：
-mysqld_safe --defaults-file=/home/hadoop/MySQL/my.cnf --user=hadoop &
+mysqld_safe --defaults-file=/etc/my.cnf --user=app &
 ```
 
 ### Mysql 服务
@@ -91,6 +99,8 @@ service mysqld status
 # 使用mysql客户端连接mysql
 $ /usr/local/mysql/bin/mysql -u root -p password
 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'; #更新一下用户的密码 
+
 # 修改mysql的默认初始化密码
 alter user 'root'@'localhost' identified by 'password';
 
@@ -113,4 +123,22 @@ GRANT RELOAD,REPLICATION CLIENT ON *.* TO 'risk'@'%';
 GRANT Alter, Alter Routine, Create, Create Routine, Create Temporary Tables, Create View, Delete, Drop, Event, Execute, Grant Option, Index, Insert, Lock Tables, References, Select, Show View, Trigger, Update ON `dev_db`.* TO `dev`@`%`;
 ```
 
- 
+###  Mysql关闭
+
+* 执行命令
+
+    ```
+    ./mysqladmin -uroot -p -P3306 -hlocalhost shutdown
+    ./mysqladmin -uroot -p -S /data/3306/mysql.sock shutdown
+    ```
+
+* 在mysql cli中执行shutdown
+
+  ```
+  ./mysql -uroot -p -P3306 -hlocalhost
+  > shutdown;
+  ```
+```
+  
+  
+```
